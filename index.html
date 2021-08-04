@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>arrow move</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<table>
+<tbody id="tbody1">
+<tr>
+    <td><input type="text" id="row1_col1" autofocus></td>
+    <td><input type="text" id="row1_col2"></td>
+    <td><input type="text" id="row1_col3"></td>
+    <td><input type="text" id="row1_col4"></td>
+</tr>
+<tr>
+    <td><input type="text" id="row2_col1"></td>
+    <td colspan="1"></td>
+    <td colspan="1"></td>
+    <td><input type="text" id="row2_col4"></td>
+</tr>
+<tr>
+    <td><input type="text" id="row3_col1"></td>
+    <td><input type="text" id="row3_col2"></td>
+    <td colspan="1"></td>
+    <td><input type="text" id="row3_col4"></td>
+</tr>
+<tr>
+    <td><input type="text" id="row4_col1"></td>
+    <td><input type="text" id="row4_col2"></td>
+    <td><input type="text" id="row4_col3"></td>
+    <td colspan="1"></td>
+</tr>
+<tr>
+    <td><input type="text" id="row5_col1"></td>
+    <td><input type="text" id="row5_col2"></td>
+    <td><input type="text" id="row5_col3"></td>
+    <td><input type="text" id="row5_col4"></td>
+</tr>
+<tr>
+    <td><input type="text" id="row6_col1"></td>
+    <td colspan="1"></td>
+    <td><input type="text" id="row6_col3"></td>
+    <td><input type="text" id="row6_col4"></td>
+</tr>
+</tbody>
+</table>
+<script>
+
+
+    let rownum,colnum;
+    let id,target,rowlength, collength;
+
+    $(document).keydown(function (e) {
+        // console.log(e)
+        target = e.target.id;
+        rownum = Number(target.slice(3,target.indexOf('_')));
+        colnum = Number(target.slice(target.indexOf('l')+1,target.length));
+
+        rowlength = $('#tbody1 tr').length;
+        collength = $('#tbody1 tr').eq(0).find('td').length;
+        // console.log("#"+target , id)
+
+        while($(id).length === 0 || ("#"+target === id)){
+
+            switch (e.key){
+                case 'ArrowLeft':
+                    colnum -= 1;
+                    break;
+                case 'ArrowRight':
+                    colnum += 1;
+                    break;
+                case 'ArrowUp':
+                    rownum -= 1;
+                    break;
+                case 'ArrowDown':
+                    rownum += 1;
+                    break;
+                default:
+                    break;
+            }
+
+            id = '#row' + rownum + '_col' + colnum;
+
+            if($(id).length === 1) {
+                break;
+            }else if(rownum > rowlength || colnum > collength || colnum <= 0 || rownum <= 0){
+                id = target
+                break;
+            }
+
+        }
+
+        $(id).focus();
+
+    })
+
+</script>
+
+</body>
+</html>

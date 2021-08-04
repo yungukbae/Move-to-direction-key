@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>arrow move</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<table>
+    <button id="btn">Click</button>
+    <tbody id="tbody1">
+    <tr>
+        <td><input type="text" autofocus></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td><input type="text"></td>
+        <td colspan="2"></td>
+<!--        <td colspan="1"></td>-->
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td colspan="1"></td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td colspan="1"></td>
+    </tr>
+    <tr>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td><input type="text"></td>
+        <td colspan="1"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    $(function () {
+        $("#btn").on("click", function (){
+            for(let i = 1; i <= $('#tbody1 tr').length; i++){
+                $('#tbody1 tr').eq(i-1).attr('id','row'+i);
+                for(let j = 1; j <= $('#tbody1 tr td').length; j++) {
+                    if($('#tbody1 tr').eq(i-1).find('td').eq(j-1).find('input')[0]){
+                        $('#tbody1 tr').eq(i-1).find('td').eq(j-1).attr('id','row'+i+'_col'+j);
+                    }
+                }
+            }
+        })
+    })
+
+
+
+</script>
+
+</body>
+</html>
