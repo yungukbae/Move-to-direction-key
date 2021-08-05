@@ -70,47 +70,34 @@
         39:[0,1],
         40:[1,0]
     }
-
     $(document).keydown(function (e) {
         console.log(e.keyCode)  //37 left,38 up,39 right,40 down
-
         let move = input_key[e.keyCode];
         if(move == undefined){
             return false;
         }
-        let target = e.target.id
-        let rownum = Number(target.slice(3,target.indexOf('_')));
-        let colnum = Number(target.slice(target.indexOf('l')+1,target.length));
-        let id = [rownum,colnum];
-        target = [rownum,colnum];
-        let result = e.target.id;
+        let now_focus = e.target.id
+        let position = [Number(now_focus.slice(3,now_focus.indexOf('_'))),Number(now_focus.slice(now_focus.indexOf('l')+1,now_focus.length))]
+        let target = position;
+        let maplength = [$('#tbody1 tr').length, 5];
 
+        while($(position).length === 0 || target.toString() ===  position.toString()) {
 
-        let rowlength = $('#tbody1 tr').length;
-        let collength = $('#tbody1 tr').eq(0).find('td').length;
-        // console.log("#"+target , id)
+            target.forEach((value,index) => {
+                target[index] += move[index];
+                target[index] = (target[index] + maplength[index]) % maplength[index];
 
-        while($(result).length === 0 || target.toString() ===  id.toString()) {
+                if((move[index] < 0 && target[index] === maplength[index] - 1) || (move[index] > 0 && target[index] === 0)){
+                    target[1 - index] += move[index];
+                }
 
-            target[0] += move[0];
-            target[1] += move[1];
-            if(target[0] === rowlength){
-                target[1]++;
-            }else if(target[0] < 0){
-                target[1]--;
-            }
-            if(target[1] === collength){
-                target[0]++;
-            }else if(target[1] < 0){
-                target[0]--;
-            }
-            target[0] = (target[0] + rowlength) % rowlength;
-            target[1] = (target[1] + collength) % collength;
+                target[1 - index] = (target[1 - index] + maplength[1 - index]) % maplength[1 - index];
+            });
 
-            result = '#row' + target[0] + '_col' + target[1];
+            position = '#row' + target[0] + '_col' + target[1];
         }
-
-        $(result).focus();
+        position = '#row' + target[0] + '_col' + target[1];
+        $(position).focus();
     })
 
 

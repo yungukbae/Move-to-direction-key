@@ -56,47 +56,42 @@
         console.log(e.keyCode)  //37 left,38 up,39 right,40 down
         let row={num:0,length:0},col={num:0,length:0};
         let id,target;
-
         target = e.target.id;
         row.num = Number(target.slice(3,target.indexOf('_')));
         col.num = Number(target.slice(target.indexOf('l')+1,target.length));
-
         row.length = $('#tbody1 tr').length;
         col.length = $('#tbody1 tr').eq(0).find('td').length;
-        // console.log("#"+target , id)
 
         while($(id).length === 0 || ("#"+target === id)){
-
-
-            switch (e.key){
-                case 'ArrowLeft':
+     switch (e.keyCode){
+                case 37:
                     if(col.num < 1){
                         col.num = col.length;
-                        // (row.num === 1) ? row.num = row.length : row.num--;
+                        (row.num === 1) ? row.num = row.length : row.num--;
                     }else{
                         col.num--;
                     }
                     break;
-                case 'ArrowRight':
+                case 39:
                     if(col.num > col.length ){
                         col.num = 1;
-                        // (row.num === row.length) ? row.num = 1 : row.num++;
+                        (row.num === row.length) ? row.num = 1 : row.num++;
                     }else{
                         col.num++;
                     }
                     break;
-                case 'ArrowUp':
+                case 38:
                     if(row.num < 1 ){
                         row.num = row.length;
-                        // (col.num === 1) ? col.num = col.length : col.num--;
+                        (col.num === 1) ? col.num = col.length : col.num--;
                     }else{
                         row.num--;
                     }
                     break;
-                case 'ArrowDown':
+                case 40:
                     if(row.num > row.length ){
                         row.num = 1;
-                        // (col.num === col.length) ? col.num = 1 : col.num++;
+                        (col.num === col.length) ? col.num = 1 : col.num++;
                     }else{
                         row.num++;
                     }
@@ -104,16 +99,12 @@
                 default:
                     break;
             }
-
             id = '#row' + row.num + '_col' + col.num;
-
             if($(id).length === 1) {
                 break;
             }
         }
-
         $(id).focus();
-
     })
 
 
